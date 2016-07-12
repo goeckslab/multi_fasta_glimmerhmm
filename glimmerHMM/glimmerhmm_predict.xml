@@ -9,7 +9,7 @@
 	    #if str($top_n_predictions) != "-1":
 	        -n $top_n_predictions
         #end if
-	    2> /dev/null</command>
+	    </command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Genome Sequence"/>
 		<param name="partial_gene" type="boolean" label="Don't make partial gene predictions" truevalue="-f" falsevalue="" checked="false" />
