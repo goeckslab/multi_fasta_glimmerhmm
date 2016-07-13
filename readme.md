@@ -38,24 +38,23 @@ For example:
 ```
 
 You also need to use a trained organism by adding them as reference data in Galaxy:
-1. Add the *glimmer_hmm_trained_dir* data table to `tool_data_table_conf.xml` in `$GALAXY_ROOT/config/`:
-    
-```xml
-<!-- glimmer_hmm trained_dir -->
-<table name="glimmer_hmm_trained_dir" comment_char="#">
-    <columns>value, name, path</columns>
-    <file path="tool-data/glimmer_hmm.loc" />
-</table>
-```
+1. Add the *glimmer_hmm_trained_dir* data table to `tool_data_table_conf.xml` in `$GALAXY_ROOT/config/`: 
+    ```xml
+    <!-- glimmer_hmm trained_dir -->
+    <table name="glimmer_hmm_trained_dir" comment_char="#">
+        <columns>value, name, path</columns>
+        <file path="tool-data/glimmer_hmm.loc" />
+    </table>
+    ```
 2. Add the `glimmer_hmm.loc` file referencing your trained organism, in `tool-data`.
-You have a sample [`glimmer_hmm.loc.sample`] available in the repository to help you configuring it properly
+    You have a sample [`glimmer_hmm.loc.sample`] available in the repository to help you configuring it properly
 3. Add your data in the chosen folder at step 2. You can get them from the GlimmerHMM tar, `$GLIMMERHMM/trained_dir`
 
 History
 =======
 
-v2.0 - Update by Rémi Marenco to make it work without having to modify the wrapper + add ability to select the species
-v0.1 - Initial public release
+- v2.0 - Update by Rémi Marenco to make it work without having to modify the wrapper + add ability to select the species
+- v0.1 - Initial public release
 
 
 Wrapper Licence (MIT/BSD style)
