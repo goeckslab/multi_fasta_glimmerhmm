@@ -32,20 +32,23 @@ To install the wrapper copy the glimmerHMM folder in the galaxy tools
 folder and modify the $GALAXY_ROOT/config/tool_conf.xml file to make the tool available to Galaxy.
 For example:
 
+```xml
 <tool file="gene_prediction/tools/glimmerHMM/glimmerhmm_predict.xml" />
 <tool file="gene_prediction/tools/glimmerHMM/glimmerhmm_to_sequence.xml" />
+```
 
 You also need to use a trained organism by adding them as reference data in Galaxy:
 1. Add the *glimmer_hmm_trained_dir* data table to `tool_data_table_conf.xml` in `$GALAXY_ROOT/config/`:
-    ```xml
-﻿    <!-- glimmer_hmm trained_dir -->
-    <table name="glimmer_hmm_trained_dir" comment_char="#">
-        <columns>value, name, path</columns>
-        <file path="tool-data/glimmer_hmm.loc" />
-    </table>
-    ```
+    
+```xml
+<!-- glimmer_hmm trained_dir -->
+<table name="glimmer_hmm_trained_dir" comment_char="#">
+    <columns>value, name, path</columns>
+    <file path="tool-data/glimmer_hmm.loc" />
+</table>
+```
 2. Add the `glimmer_hmm.loc` file referencing your trained organism, in `tool-data`.
-You have a sample (`glimmer_hmm.loc.sample`) available in the repository to help you configuring it properly
+You have a sample [`glimmer_hmm.loc.sample`] available in the repository to help you configuring it properly
 3. Add your data in the chosen folder at step 2. You can get them from the GlimmerHMM tar, `$GLIMMERHMM/trained_dir`
 
 History
