@@ -2,7 +2,7 @@
 	<description>Predict ORFs in eukaryotic genomes</description>
 	<command detect_errors="exit_code"><![CDATA[
 	    glimmerhmm
-	    $input /home/galaxy/Dev/tmp/GlimmerHMM/trained_dir/human/Train0-43
+	    $input $trained_specie.fields.path
 	    -o $output
 	    -g
 	    $svm_splice_prediction
@@ -13,6 +13,12 @@
 	]]></command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Genome Sequence"/>
+        <param name="trained_specie" type="select" label="Select a specie">
+            <options from_data_table="glimmer_hmm_trained_dir">
+                <filter type="sort_by" column="2"/>
+                <validator type="no_options" message="No indexes are available"/>
+            </options>
+        </param>
 		<param name="partial_gene" type="boolean" label="Don't make partial gene predictions" truevalue="-f" falsevalue="" checked="false" />
 		<param name="svm_splice_prediction" type="boolean" label="Don't use svm splice site predictions" truevalue="-v" falsevalue="" checked="false" />
 		<param name="top_n_predictions" type="integer" label="top n best predictions, -1 means infinite" value="-1"/>
