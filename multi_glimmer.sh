@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 reference_fasta=$1
@@ -7,12 +7,12 @@ output=$3
 temp="temp_contig_file"
 
 # Write the glimmerhmm, with the comments
-function glimmerHMM_first {
+glimmerHMM_first () {
     glimmerhmm $1 ${trained_dir} -o ${output} -g
 }
 
 # Write the glimmerhmm output without the comments
-function glimmerHMM_without_comments {
+glimmerHMM_without_comments () {
     glimmerhmm $1 ${trained_dir} -g | tail -n +2 >> ${output}
 }
 
@@ -22,15 +22,17 @@ while read line
 do
     # Get the content of actual contig
     #samtools_faidx_show_contig ${reference_fasta} ${contig} > contig_content
-    if [[ ${line:0:1} == '>' ]]
+    first_char=$(echo ${line} | cut -c1-1)
+
+    if [ ${first_char} = '>' ]
     then
         # If true, it means we have finished reading at least the first contig
-        if [[ -f ${temp} ]]
+        if [ -f ${temp} ]
         then
             if [ ${count} -eq 1 ]
             then
                 glimmerHMM_first ${temp};
-                (( count++ ))
+                count=$((count+1))
             else
                 glimmerHMM_without_comments ${temp};
             fi
@@ -39,7 +41,6 @@ do
     else
         echo ${line} >> ${temp}
     fi
-
 done < "${reference_fasta}"
 
 # Still last contig to process
