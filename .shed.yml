@@ -1,0 +1,6 @@
+categories: []
+description: GlimmerHMM is a gene finder based on a Generalized Hidden Markov Model (GHMM)
+homepage_url: https://ccb.jhu.edu/software/glimmerhmm/
+name: multi_fasta_glimmer_hmm
+owner: remimarenco
+remote_repository_url: https://github.com/remimarenco/multi_fasta_glimmerhmm.git

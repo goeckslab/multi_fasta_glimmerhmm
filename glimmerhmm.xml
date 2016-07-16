@@ -1,15 +1,13 @@
-<tool id="glimmerhmm_predict" name="GlimmerHMM" version="2.0">
-    <description>Predict ORFs in eukaryotic genomes</description>
-    <command detect_errors="exit_code"><![CDATA[
-	    glimmerhmm
-	    $input $trained_specie.fields.path
-	    -o $output
-	    -g
-	    $svm_splice_prediction
-	    $partial_gene
-	    #if str($top_n_predictions) != "-1":
-	        -n $top_n_predictions
-        #end if
+<tool id="multi_fasta_glimmerhmm" name="Multi Fasta GlimmerHMM" version="1.0">
+    <requirements>
+        <requirement type="package" version="1.2">samtools</requirement>
+    </requirements>
+    <description>Predict ORFs in eukaryotic genomes for Multi Fasta file</description>
+    <command detect_errors="aggressive"><![CDATA[
+        $__tool_directory__/multi_glimmer.sh
+        $input
+        $trained_specie.fields.path
+        $output
 	]]></command>
     <inputs>
         <param name="input" type="data" format="fasta" label="Genome Sequence"/>
@@ -19,9 +17,6 @@
                 <validator type="no_options" message="No indexes are available"/>
             </options>
         </param>
-        <param name="partial_gene" type="boolean" label="Don't make partial gene predictions" truevalue="-f" falsevalue="" checked="false" />
-        <param name="svm_splice_prediction" type="boolean" label="Don't use svm splice site predictions" truevalue="-v" falsevalue="" checked="false" />
-        <param name="top_n_predictions" type="integer" label="top n best predictions, -1 means infinite" value="-1"/>
     </inputs>
     <outputs>
         <data format="gff3" name="output" />
