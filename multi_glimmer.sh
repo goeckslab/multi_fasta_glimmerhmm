@@ -4,16 +4,7 @@ set -e
 reference_fasta=$1
 trained_dir=$2
 output=$3
-
-# Generate the index
-function samtools_faidx {
-    samtools faidx $1
-}
-
-# Read, in the file passed in parameter $1, the contig passed in parameter $2
-function samtools_faidx_show_contig {
-    samtools faidx $1 $2
-}
+temp="temp_contig_file"
 
 # Write the glimmerhmm, with the comments
 function glimmerHMM_first {
@@ -25,25 +16,34 @@ function glimmerHMM_without_comments {
     glimmerhmm $1 ${trained_dir} -g | tail -n +2 >> ${output}
 }
 
-# We create the index
-samtools_faidx ${reference_fasta}
-
 count=1
 # Loop through the contigs to run glimmer on each
-while read contig others_fields 
+while read line
 do
     # Get the content of actual contig
-    samtools_faidx_show_contig ${reference_fasta} ${contig} > contig_content
-    if [ ${count} -eq 1 ]
+    #samtools_faidx_show_contig ${reference_fasta} ${contig} > contig_content
+    if [[ ${line:0:1} == '>' ]]
     then
-		glimmerHMM_first contig_content;
-		(( count++ ))
-	else
-	    glimmerHMM_without_comments contig_content;
-	fi
-done < "${reference_fasta}.fai"
+        # If true, it means we have finished reading at least the first contig
+        if [[ -f ${temp} ]]
+        then
+            if [ ${count} -eq 1 ]
+            then
+                glimmerHMM_first ${temp};
+                (( count++ ))
+            else
+                glimmerHMM_without_comments ${temp};
+            fi
+        fi
+        echo ${line} > ${temp}
+    else
+        echo ${line} >> ${temp}
+    fi
 
-# Delete the index
-rm ${reference_fasta}.fai
+done < "${reference_fasta}"
 
-exit 0
+# Still last contig to process
+glimmerHMM_without_comments ${temp};
+
+# Delete the temp_contig_file
+rm ${temp}
