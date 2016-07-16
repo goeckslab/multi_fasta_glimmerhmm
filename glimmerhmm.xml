@@ -1,4 +1,4 @@
-<tool id="multi_fasta_glimmerhmm" name="Multi Fasta GlimmerHMM" version="1.0">
+<tool id="multi_fasta_glimmerhmm" name="Multi Fasta GlimmerHMM" version="3.0">
     <requirements>
         <requirement type="package" version="1.2">samtools</requirement>
     </requirements>
@@ -32,8 +32,6 @@
         coding and noncoding models . Currently, GlimmerHMM's GHMM structure includes introns of each phase,
         intergenic regions, and four types of exons (initial, internal, final, and single).
         A basic user manual can be consulted here.
-
-        -----
 
         **Example**
 

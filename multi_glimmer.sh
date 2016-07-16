@@ -22,7 +22,7 @@ function glimmerHMM_first {
 
 # Write the glimmerhmm output without the comments
 function glimmerHMM_without_comments {
-    glimmerhmm $1 ${trained_dir} -g | tail -n +3 >> ${output}
+    glimmerhmm $1 ${trained_dir} -g | tail -n +2 >> ${output}
 }
 
 # We create the index

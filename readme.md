@@ -1,7 +1,7 @@
 Galaxy wrapper for GlimmerHMM
 =====================================
 
-This wrapper has been written in 2012 by Björn Grüning, and updated by Rémi Marenco in 2016.
+This wrapper has been rewritten by Rémi Marenco in 2016 to fix issues, improve it and add the multi_fasta handling. It has been originally written by Björn Gruening.
 
 This is a wrapper for the command line tool of GlimmerHMM.
 https://ccb.jhu.edu/software/glimmerhmm/
@@ -56,6 +56,7 @@ You also need to use a trained organism by adding them as reference data in Gala
 History
 =======
 
+- v3.0 - Add the Multi Fasta support
 - v2.0 - Update by Rémi Marenco to make it work without having to modify the wrapper + add ability to select the species
 - v0.1 - Initial public release
 
