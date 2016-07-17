@@ -1,10 +1,10 @@
-<tool id="multi_fasta_glimmerhmm" name="Multi Fasta GlimmerHMM" version="3.0">
+<tool id="multi_fasta_glimmerhmm" name="Multi Fasta GlimmerHMM" version="4.0">
     <description>Predict ORFs in eukaryotic genomes for Multi Fasta file</description>
     <command detect_errors="aggressive"><![CDATA[
-        $__tool_directory__/multi_glimmer.sh
-        $input
-        $trained_specie.fields.path
-        $output
+        python $__tool_directory__/multi_glimmer.py
+        --multi_fasta $input
+        --trained_dir $trained_specie.fields.path
+        --output $output
 	]]></command>
     <inputs>
         <param name="input" type="data" format="fasta" label="Genome Sequence"/>
