@@ -36,17 +36,25 @@ def main():
             is_first_time = True
             for i, line in enumerate(mf):
                 if line[0] == '>':
+                    # If it is the first time we finish to read a contig, we let glimmer add the full comments
+                    # and write into the output the result
                     if is_first_time is True and i != 0:
                         o.write(exec_glimmer(temp_contig, first_time=is_first_time))
                         is_first_time = False
+                    # Else we call glimmer and say this is not the first time (so remove the first comment)
+                    # and dump into the output file the result
                     elif i > 0:
                         o.write(exec_glimmer(temp_contig))
 
+                    # Because we are on an indication of a beginning of a sequence, we need to create an empty file
+                    # to dump the line into
                     with open(temp_contig, 'w+') as tc:
                         tc.write(line) 
                 else:
+                    # We are in the sequence of a contig, so we append the line in the file
                     with open(temp_contig, 'a+') as tc:
                         tc.write(line)
+        # The file is terminate, we did read another contig so we need to save this last one
         o.write(exec_glimmer(temp_contig, first_time=is_first_time))
 
 if __name__ == "__main__":
