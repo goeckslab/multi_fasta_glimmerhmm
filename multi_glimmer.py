@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 import argparse
+import os
 import subprocess
 import sys
 
@@ -20,6 +21,10 @@ def main():
 
     multi_fasta = args.multi_fasta
     trained_dir = args.trained_dir
+    # TODO: Temporary fix for the issue with config.file in human/. Next: GC Content to select the appropriate folder
+    if trained_dir.split('/')[-1] == "human":
+        trained_dir = os.path.join(trained_dir, "Train0-43")
+
     output_file = args.output
     temp_contig = "temp_contig"
 
