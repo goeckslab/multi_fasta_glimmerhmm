@@ -3,6 +3,7 @@
 
 import argparse
 import subprocess
+import sys
 
 
 def main():
@@ -23,13 +24,21 @@ def main():
     temp_contig = "temp_contig"
 
     def exec_glimmer(contig_file, first_time=False):
-        p = subprocess.Popen(["glimmerhmm", contig_file, trained_dir, "-g"], stdout=subprocess.PIPE)
-        output = p.communicate()[0]
+        p = subprocess.Popen(["glimmerhmm", contig_file, trained_dir, "-g"],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, errors = p.communicate()
+
+        p.wait()
+        # Process the error if != "Done"
+        if not errors or (errors.split()[0] != "Done"):
+            raise Exception("Error in glimmer: {0}".format(errors))
+        else:
+            sys.stdout.write(errors)
         # If  not first time, we need to remove the first comments
         if not first_time:
             output = "\n".join(output.split("\n")[1:])
-            
-        return output 
+
+        return output
 
     with open(output_file, 'w+') as o:
         with open(multi_fasta, 'r') as mf:
@@ -49,7 +58,7 @@ def main():
                     # Because we are on an indication of a beginning of a sequence, we need to create an empty file
                     # to dump the line into
                     with open(temp_contig, 'w+') as tc:
-                        tc.write(line) 
+                        tc.write(line)
                 else:
                     # We are in the sequence of a contig, so we append the line in the file
                     with open(temp_contig, 'a+') as tc:
