@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="glimmerhmm" version="3.0.4">
+        <install version="1.0">
+            <actions_group>
+                <actions architecture="x86_64" os="linux">
+                    <action type="download_by_url">ftp://ccb.jhu.edu/pub/software/glimmerhmm/GlimmerHMM-3.0.4.tar.gz</action>
+                    <action type="move_directory_files">
+                        <source_directory>.</source_directory>                       
+                        <destination_directory>$INSTALL_DIR</destination_directory>
+                    </action> 
+                    <action type="move_file" rename_to="glimmerhmm">
+                        <source>$INSTALL_DIR/bin/glimmerhmm_linux_x86_64</source>
+                        <destination>$INSTALL_DIR/bin</destination>
+                    </action> 
+                    <action type="set_environment">
+                        <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                    </action>  
+                </actions>
+            </actions_group>
+         </install>
+         <readme>GlimmerHMM is a new gene finder based on a Generalized Hidden Markov Model (GHMM). https://ccb.jhu.edu/software/glimmerhmm/</readme>
+    </package>
+    
+</tool_dependency>
+
