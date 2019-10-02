@@ -4,7 +4,7 @@
         <install version="1.0">
             <actions_group>
                 <actions architecture="x86_64" os="linux">
-                    <action type="download_by_url">ftp://ccb.jhu.edu/pub/software/glimmerhmm/GlimmerHMM-3.0.4.tar.gz</action>
+                    <action type="download_by_url">https://ccb.jhu.edu/software/glimmerhmm/dl/GlimmerHMM-3.0.4.tar.gz</action>
                     <action type="move_directory_files">
                         <source_directory>.</source_directory>                       
                         <destination_directory>$INSTALL_DIR</destination_directory>
